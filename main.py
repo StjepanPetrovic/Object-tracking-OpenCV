@@ -1,4 +1,5 @@
 import os
+import sys
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
@@ -86,3 +87,18 @@ elif tracker_type == "GOTURN":
     tracker = cv2.TrackerGOTURN.create()
 else:
     tracker = cv2.legacy.TrackerMOSSE.create()
+
+# Read video
+video = cv2.VideoCapture(video_input_file_name)
+ok, frame = video.read()
+
+# Exit if video not opened
+if not video.isOpened():
+    print("Could not open video")
+    sys.exit()
+else:
+    width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+video_output_file_name = "race_car-" + tracker_type + ".mp4"
+video_out = cv2.VideoWriter(video_output_file_name, cv2.VideoWriter_fourcc(*"avc1"), 10, (width, height))
