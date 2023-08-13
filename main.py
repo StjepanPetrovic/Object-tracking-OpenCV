@@ -49,3 +49,7 @@ print("Data type of image is:", coke_img.dtype)
 
 plt.imshow(coke_img)
 plt.show()
+
+coke_img_channels_reversed = coke_img[:, :, ::-1]
+plt.imshow(coke_img_channels_reversed)
+plt.show()
