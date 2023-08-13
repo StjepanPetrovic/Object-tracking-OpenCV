@@ -1,11 +1,11 @@
 import os
 import sys
 import cv2
-import numpy as np
 import matplotlib.pyplot as plt
 
 from zipfile import ZipFile
 from urllib.request import urlretrieve
+
 
 def download_and_unzip(url, save_path):
     print(f"Downloading and extracting assets....", end="")
@@ -109,3 +109,38 @@ bbox = (1300, 405, 160, 120)
 # bbox = cv2.selectROI(frame, False)
 # print(bbox)
 displayRectangle(frame, bbox)
+
+
+# Initialize tracker with first frame and bounding box
+ok = tracker.init(frame, bbox)
+
+while True:
+    ok, frame = video.read()
+
+    if not ok:
+        break
+
+    # Start timer
+    timer = cv2.getTickCount()
+
+    # Update tracker
+    ok, bbox = tracker.update(frame)
+
+    # Calculate Frames per second (FPS)
+    fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer)
+
+    # Draw bounding box
+    if ok:
+        drawRectangle(frame, bbox)
+    else:
+        drawText(frame, "Tracking failure detected", (80, 140), (0, 0, 255))
+
+    # Display Info
+    drawText(frame, tracker_type + " Tracker", (80, 60))
+    drawText(frame, "FPS : " + str(int(fps)), (80, 100))
+
+    # Write frame to video
+    video_out.write(frame)
+
+video.release()
+video_out.release()
