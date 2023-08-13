@@ -41,7 +41,8 @@ h, s, v = cv2.split(img_hsv)
 
 h_new = h + 20
 img_NZ_merged = cv2.merge((h_new, s, v))
-img_NZ_rgb = cv2.cvtColor(img_NZ_merged, cv2.COLOR_HSV2RGB)
+img_NZ_bgr = cv2.cvtColor(img_NZ_merged, cv2.COLOR_HSV2BGR)
+img_NZ_rgb = cv2.cvtColor(img_NZ_bgr, cv2.COLOR_BGR2RGB)
 
 # Show the channels
 plt.figure(figsize=[20, 5])
@@ -61,6 +62,20 @@ plt.title("V Channel - value")
 # Show the merged output
 plt.subplot(144)
 plt.imshow(img_NZ_rgb)
-plt.title("Original")
+plt.title("Modified")
 
+plt.show()
+
+cv2.imwrite("New_Zealand_Lake_SAVED.png", img_NZ_bgr)
+
+img_NZ_bgr_saved = cv2.imread("New_Zealand_Lake_SAVED.png", cv2.IMREAD_COLOR)
+img_NZ_rgb_saved = cv2.cvtColor(img_NZ_bgr_saved, cv2.COLOR_BGR2RGB)
+plt.imshow(img_NZ_rgb_saved)
+plt.title("Modified - saved")
+plt.show()
+
+img_NZ_bgr = cv2.imread("New_Zealand_Lake.jpg", cv2.IMREAD_COLOR)
+img_NZ_rgb = cv2.cvtColor(img_NZ_bgr, cv2.COLOR_BGR2RGB)
+plt.imshow(img_NZ_rgb)
+plt.title("Original")
 plt.show()
