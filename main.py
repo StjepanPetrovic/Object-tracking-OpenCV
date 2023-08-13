@@ -31,3 +31,25 @@ asset_zip_path = os.path.join(os.getcwd(), f"opencv_bootcamp_assets_NB11.zip")
 # Download if assets ZIP does not exist.
 if not os.path.exists(asset_zip_path):
     download_and_unzip(URL, asset_zip_path)
+
+
+video_input_file_name = "race_car.mp4"
+
+
+def drawRectangle(frame, bbox):
+    p1 = (int(bbox[0]), int(bbox[1]))
+    p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
+    cv2.rectangle(frame, p1, p2, (255, 0, 0), 2, 1)
+
+
+def displayRectangle(frame, bbox):
+    plt.figure(figsize=(20, 10))
+    frameCopy = frame.copy()
+    drawRectangle(frameCopy, bbox)
+    frameCopy = cv2.cvtColor(frameCopy, cv2.COLOR_RGB2BGR)
+    plt.imshow(frameCopy)
+    plt.axis("off")
+
+
+def drawText(frame, txt, location, color=(50, 170, 50)):
+    cv2.putText(frame, txt, location, cv2.FONT_HERSHEY_SIMPLEX, 1, color, 3)
