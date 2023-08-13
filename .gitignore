@@ -1,1 +1,5 @@
 .idea
+*.zip
+*.png
+*.jpg
+display_image.py
