@@ -33,29 +33,33 @@ else:
 
 # Split the image into the B,G,R components
 img_NZ_bgr = cv2.imread("New_Zealand_Lake.jpg", cv2.IMREAD_COLOR)
-b, g, r = cv2.split(img_NZ_bgr)
+
+# OpenCV stores color channels in a differnet order than most other applications (BGR vs RGB).
+img_NZ_rgb = cv2.cvtColor(img_NZ_bgr, cv2.COLOR_BGR2RGB)
+
+img_hsv = cv2.cvtColor(img_NZ_bgr, cv2.COLOR_BGR2HSV)
+
+# Split the image into the B,G,R components
+h, s, v = cv2.split(img_hsv)
 
 # Show the channels
 plt.figure(figsize=[20, 5])
 
 plt.subplot(141)
-plt.imshow(r, cmap="gray")
-plt.title("Red Channel")
+plt.imshow(h, cmap="gray")
+plt.title("H Channel - hue")
 
 plt.subplot(142)
-plt.imshow(g, cmap="gray")
-plt.title("Green Channel")
+plt.imshow(s, cmap="gray")
+plt.title("S Channel - saturation")
 
 plt.subplot(143)
-plt.imshow(b, cmap="gray")
-plt.title("Blue Channel")
-
-# Merge the individual channels into a BGR image
-imgMerged = cv2.merge((b, g, r))
+plt.imshow(v, cmap="gray")
+plt.title("V Channel - value")
 
 # Show the merged output
 plt.subplot(144)
-plt.imshow(imgMerged[:, :, ::-1])
-plt.title("Merged Output")
+plt.imshow(img_NZ_rgb)
+plt.title("Original")
 
 plt.show()
