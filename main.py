@@ -31,25 +31,31 @@ if not os.path.exists(asset_zip_path):
 else:
     print("\nZip already exists.")
 
-# Read image as gray scale.
-cb_img = cv2.imread("checkerboard_18x18.png", 0)
+# Split the image into the B,G,R components
+img_NZ_bgr = cv2.imread("New_Zealand_Lake.jpg", cv2.IMREAD_COLOR)
+b, g, r = cv2.split(img_NZ_bgr)
 
-# Print the image data (pixel values), element of a 2D numpy array.
-# Each pixel value is 8-bits [0,255]
-print(cb_img)
+# Show the channels
+plt.figure(figsize=[20, 5])
 
-# Read in image
-coke_img = cv2.imread("coca-cola-logo.png", 1)
+plt.subplot(141)
+plt.imshow(r, cmap="gray")
+plt.title("Red Channel")
 
-# print the size (height, width, number of color channels - red, green, blue) of image
-print("\nImage size (H, W, C) is:", coke_img.shape)
+plt.subplot(142)
+plt.imshow(g, cmap="gray")
+plt.title("Green Channel")
 
-# print data-type of image
-print("Data type of image is:", coke_img.dtype)
+plt.subplot(143)
+plt.imshow(b, cmap="gray")
+plt.title("Blue Channel")
 
-plt.imshow(coke_img)
-plt.show()
+# Merge the individual channels into a BGR image
+imgMerged = cv2.merge((b, g, r))
 
-coke_img_channels_reversed = coke_img[:, :, ::-1]
-plt.imshow(coke_img_channels_reversed)
+# Show the merged output
+plt.subplot(144)
+plt.imshow(imgMerged[:, :, ::-1])
+plt.title("Merged Output")
+
 plt.show()
