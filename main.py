@@ -53,3 +53,36 @@ def displayRectangle(frame, bbox):
 
 def drawText(frame, txt, location, color=(50, 170, 50)):
     cv2.putText(frame, txt, location, cv2.FONT_HERSHEY_SIMPLEX, 1, color, 3)
+
+
+# Set up tracker
+tracker_types = [
+    "BOOSTING",
+    "MIL",
+    "KCF",
+    "CSRT",
+    "TLD",
+    "MEDIANFLOW",
+    "GOTURN",
+    "MOSSE",
+]
+
+# Change the index to change the tracker type
+tracker_type = tracker_types[2]
+
+if tracker_type == "BOOSTING":
+    tracker = cv2.legacy.TrackerBoosting.create()
+elif tracker_type == "MIL":
+    tracker = cv2.legacy.TrackerMIL.create()
+elif tracker_type == "KCF":
+    tracker = cv2.TrackerKCF.create()
+elif tracker_type == "CSRT":
+    tracker = cv2.TrackerCSRT.create()
+elif tracker_type == "TLD":
+    tracker = cv2.legacy.TrackerTLD.create()
+elif tracker_type == "MEDIANFLOW":
+    tracker = cv2.legacy.TrackerMedianFlow.create()
+elif tracker_type == "GOTURN":
+    tracker = cv2.TrackerGOTURN.create()
+else:
+    tracker = cv2.legacy.TrackerMOSSE.create()
