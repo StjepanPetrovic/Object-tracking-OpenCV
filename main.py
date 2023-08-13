@@ -102,3 +102,10 @@ else:
 
 video_output_file_name = "race_car-" + tracker_type + ".mp4"
 video_out = cv2.VideoWriter(video_output_file_name, cv2.VideoWriter_fourcc(*"avc1"), 10, (width, height))
+
+# Define a bounding box
+# this can be done automatically with object recognition or graphically selecting but in this case this is easier
+bbox = (1300, 405, 160, 120)
+# bbox = cv2.selectROI(frame, False)
+# print(bbox)
+displayRectangle(frame, bbox)
