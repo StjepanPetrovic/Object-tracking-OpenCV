@@ -1,20 +1,33 @@
+import os
 import cv2
-import sys
+import numpy as np
+import matplotlib.pyplot as plt
 
-s = 0
-if len(sys.argv) > 1:
-    s = sys.argv[1]
+from zipfile import ZipFile
+from urllib.request import urlretrieve
 
-source = cv2.VideoCapture(s)
+def download_and_unzip(url, save_path):
+    print(f"Downloading and extracting assets....", end="")
 
-win_name = 'Camera Preview'
-cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
+    # Downloading zip file using urllib package.
+    urlretrieve(url, save_path)
 
-while cv2.waitKey(1) != 27: # Escape
-    has_frame, frame = source.read()
-    if not has_frame:
-        break
-    cv2.imshow(win_name, frame)
+    try:
+        # Extracting zip file using the zipfile package.
+        with ZipFile(save_path) as z:
+            # Extract ZIP file contents in the same directory.
+            z.extractall(os.path.split(save_path)[0])
 
-source.release()
-cv2.destroyWindow(win_name)
+        print("Done")
+
+    except Exception as e:
+        print("\nInvalid file.", e)
+
+
+URL = r"https://www.dropbox.com/s/ld535c8e0vueq6x/opencv_bootcamp_assets_NB11.zip?dl=1"
+
+asset_zip_path = os.path.join(os.getcwd(), f"opencv_bootcamp_assets_NB11.zip")
+
+# Download if assets ZIP does not exist.
+if not os.path.exists(asset_zip_path):
+    download_and_unzip(URL, asset_zip_path)

@@ -3,3 +3,6 @@
 *.png
 *.jpg
 display_image.py
+*.caffemodel
+*.prototxt
+*.mp4
