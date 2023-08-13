@@ -1,9 +1,9 @@
 import os
+import cv2
 
 from zipfile import ZipFile
 from urllib.request import urlretrieve
 
-from PIL import Image
 
 
 def download_and_unzip(url, save_path):
@@ -30,9 +30,9 @@ if not os.path.exists(asset_zip_path):
 else:
     print("\nZip already exists.")
 
-image_checkerboard18x18 = Image.open("checkerboard_18x18.png")
-image_checkerboard18x18.show()
+# Read image as gray scale.
+cb_img = cv2.imread("checkerboard_18x18.png", 0)
 
-image_checkerboard84x84 = Image.open("checkerboard_84x84.jpg")
-image_checkerboard84x84.show()
-
+# Print the image data (pixel values), element of a 2D numpy array.
+# Each pixel value is 8-bits [0,255]
+print(cb_img)
