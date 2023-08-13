@@ -34,13 +34,14 @@ else:
 # Split the image into the B,G,R components
 img_NZ_bgr = cv2.imread("New_Zealand_Lake.jpg", cv2.IMREAD_COLOR)
 
-# OpenCV stores color channels in a differnet order than most other applications (BGR vs RGB).
-img_NZ_rgb = cv2.cvtColor(img_NZ_bgr, cv2.COLOR_BGR2RGB)
-
 img_hsv = cv2.cvtColor(img_NZ_bgr, cv2.COLOR_BGR2HSV)
 
 # Split the image into the B,G,R components
 h, s, v = cv2.split(img_hsv)
+
+h_new = h + 20
+img_NZ_merged = cv2.merge((h_new, s, v))
+img_NZ_rgb = cv2.cvtColor(img_NZ_merged, cv2.COLOR_HSV2RGB)
 
 # Show the channels
 plt.figure(figsize=[20, 5])
