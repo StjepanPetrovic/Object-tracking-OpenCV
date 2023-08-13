@@ -31,51 +31,23 @@ if not os.path.exists(asset_zip_path):
 else:
     print("\nZip already exists.")
 
-# Split the image into the B,G,R components
-img_NZ_bgr = cv2.imread("New_Zealand_Lake.jpg", cv2.IMREAD_COLOR)
+img = cv2.imread("checkerboard_18x18.png", cv2.IMREAD_GRAYSCALE)
 
-img_hsv = cv2.cvtColor(img_NZ_bgr, cv2.COLOR_BGR2HSV)
+# if this is not converted, BGR color space is there and therefor image is yellow and purple
+# img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-# Split the image into the B,G,R components
-h, s, v = cv2.split(img_hsv)
-
-h_new = h + 20
-img_NZ_merged = cv2.merge((h_new, s, v))
-img_NZ_bgr = cv2.cvtColor(img_NZ_merged, cv2.COLOR_HSV2BGR)
-img_NZ_rgb = cv2.cvtColor(img_NZ_bgr, cv2.COLOR_BGR2RGB)
-
-# Show the channels
-plt.figure(figsize=[20, 5])
-
-plt.subplot(141)
-plt.imshow(h, cmap="gray")
-plt.title("H Channel - hue")
-
-plt.subplot(142)
-plt.imshow(s, cmap="gray")
-plt.title("S Channel - saturation")
-
-plt.subplot(143)
-plt.imshow(v, cmap="gray")
-plt.title("V Channel - value")
-
-# Show the merged output
-plt.subplot(144)
-plt.imshow(img_NZ_rgb)
-plt.title("Modified")
-
+plt.imshow(img, cmap="gray")
 plt.show()
 
-cv2.imwrite("New_Zealand_Lake_SAVED.png", img_NZ_bgr)
+img_copy = img.copy()
+img_copy[2, 2] = 200
+img_copy[2, 3] = 200
+img_copy[3, 2] = 200
+img_copy[3, 3] = 200
 
-img_NZ_bgr_saved = cv2.imread("New_Zealand_Lake_SAVED.png", cv2.IMREAD_COLOR)
-img_NZ_rgb_saved = cv2.cvtColor(img_NZ_bgr_saved, cv2.COLOR_BGR2RGB)
-plt.imshow(img_NZ_rgb_saved)
-plt.title("Modified - saved")
-plt.show()
+# Same as above
+# img_copy[2:3,2:3] = 200
 
-img_NZ_bgr = cv2.imread("New_Zealand_Lake.jpg", cv2.IMREAD_COLOR)
-img_NZ_rgb = cv2.cvtColor(img_NZ_bgr, cv2.COLOR_BGR2RGB)
-plt.imshow(img_NZ_rgb)
-plt.title("Original")
+plt.imshow(img_copy, cmap="gray")
 plt.show()
+print(img_copy)
