@@ -4,6 +4,7 @@ import cv2
 from zipfile import ZipFile
 from urllib.request import urlretrieve
 
+from matplotlib import pyplot as plt
 
 
 def download_and_unzip(url, save_path):
@@ -36,3 +37,15 @@ cb_img = cv2.imread("checkerboard_18x18.png", 0)
 # Print the image data (pixel values), element of a 2D numpy array.
 # Each pixel value is 8-bits [0,255]
 print(cb_img)
+
+# Read in image
+coke_img = cv2.imread("coca-cola-logo.png", 1)
+
+# print the size (height, width, number of color channels - red, green, blue) of image
+print("\nImage size (H, W, C) is:", coke_img.shape)
+
+# print data-type of image
+print("Data type of image is:", coke_img.dtype)
+
+plt.imshow(coke_img)
+plt.show()
